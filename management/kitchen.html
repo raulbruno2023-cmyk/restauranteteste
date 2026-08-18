@@ -1,122 +1,449 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitchen Dashboard - Rannaghor</title>
+
+    <title>Cozinha | Rannaghor</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/kitchen.css">
-    <!-- Favicon -->
+
     <link rel="icon" type="image/png" href="../assets/images/logo.png">
-    <!-- Lucide Icons -->
+
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body class="kitchen-body">
-    <nav class="kitchen-nav">
-        <div class="kitchen-nav-container">
-            <div class="nav-brand">
-                <div class="brand-icon">
-                    <img src="../assets/images/logo.png" alt="Rannaghor Logo">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="kitchen-header">
+
+        <div class="header-left">
+
+            <a href="./index.html" class="back-button" aria-label="Voltar">
+                <i data-lucide="arrow-left"></i>
+            </a>
+
+            <div class="brand">
+
+                <div class="brand-logo">
+                    <img src="../assets/images/logo.png" alt="Rannaghor">
                 </div>
-                <div class="brand-text">
-                    <span class="brand-name">Rannaghor</span>
-                    <div class="brand-sub-row">
-                        <span class="brand-tagline">Kitchen Dashboard</span>
-                    </div>
+
+                <div>
+                    <strong>Rannaghor</strong>
+                    <span>Cozinha</span>
                 </div>
+
             </div>
 
-            <div class="nav-search">
-                <div class="search-wrapper">
-                    <input type="text" id="orderSearch" placeholder="Search Food, #Order, or Table...">
-                    <span class="search-icon"><i data-lucide="search"></i></span>
-                    <button id="clearSearch" class="btn-clear hidden">&times;</button>
-                </div>
-            </div>
         </div>
-    </nav>
 
-    <!-- Mobile Column Selector -->
+
+        <div class="header-center">
+
+            <div class="live-status">
+                <span class="live-dot"></span>
+                <span>Online</span>
+            </div>
+
+            <span class="header-date" id="currentDate"></span>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="search-box">
+
+                <i data-lucide="search"></i>
+
+                <input
+                    type="text"
+                    id="orderSearch"
+                    placeholder="Buscar pedido, mesa ou produto..."
+                    autocomplete="off">
+
+                <button id="clearSearch" class="clear-search hidden">
+                    ×
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MOBILE STATUS NAV
+    ========================== -->
+
     <div class="mobile-tabs-container">
+
         <div class="mobile-tabs">
-            <button class="mobile-tab active" data-column="received">New <span
-                    id="mobile-count-received">0</span></button>
-            <button class="mobile-tab" data-column="preparing">Cooking <span
-                    id="mobile-count-preparing">0</span></button>
-            <button class="mobile-tab" data-column="ready">Ready <span id="mobile-count-ready">0</span></button>
-            <button class="mobile-tab" data-column="served">Past <span id="mobile-count-served">0</span></button>
+
+            <button
+                class="mobile-tab active"
+                data-column="received">
+
+                <span class="tab-icon new">
+                    <i data-lucide="bell"></i>
+                </span>
+
+                <span>
+                    Novos
+                    <strong id="mobile-count-received">0</strong>
+                </span>
+
+            </button>
+
+
+            <button
+                class="mobile-tab"
+                data-column="preparing">
+
+                <span class="tab-icon cooking">
+                    <i data-lucide="chef-hat"></i>
+                </span>
+
+                <span>
+                    Preparando
+                    <strong id="mobile-count-preparing">0</strong>
+                </span>
+
+            </button>
+
+
+            <button
+                class="mobile-tab"
+                data-column="ready">
+
+                <span class="tab-icon ready">
+                    <i data-lucide="check"></i>
+                </span>
+
+                <span>
+                    Prontos
+                    <strong id="mobile-count-ready">0</strong>
+                </span>
+
+            </button>
+
+
+            <button
+                class="mobile-tab"
+                data-column="served">
+
+                <span class="tab-icon served">
+                    <i data-lucide="history"></i>
+                </span>
+
+                <span>
+                    Histórico
+                    <strong id="mobile-count-served">0</strong>
+                </span>
+
+            </button>
+
         </div>
+
     </div>
 
-    <main class="kitchen-container">
-        <!-- Service Alerts (Waiter Calls) -->
-        <div id="serviceAlerts" class="service-alerts-container hidden">
-            <!-- Alert cards will be injected here -->
-        </div>
 
-        <!-- Order Sections -->
-        <div class="orders-grid">
-            <!-- Pending Orders -->
-            <section class="order-column" id="column-received">
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="kitchen-main">
+
+
+        <!-- PAGE TITLE -->
+
+        <section class="page-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    <span class="live-dot"></span>
+                    PAINEL DA COZINHA
+                </span>
+
+                <h1>
+                    Pedidos
+                    <span>em tempo real</span>
+                </h1>
+
+                <p>
+                    Acompanhe e atualize os pedidos da cozinha.
+                </p>
+
+            </div>
+
+
+            <button
+                id="manualRefresh"
+                class="refresh-button"
+                title="Atualizar pedidos">
+
+                <i data-lucide="refresh-cw"></i>
+
+                <span>Atualizar</span>
+
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             WAITER ALERTS
+        ========================== -->
+
+        <section
+            id="serviceAlerts"
+            class="service-alerts-container hidden">
+        </section>
+
+
+        <!-- =========================
+             ORDER BOARD
+        ========================== -->
+
+        <section class="orders-grid">
+
+
+            <!-- =====================
+                 NOVOS
+            ====================== -->
+
+            <section
+                class="order-column active"
+                id="column-received">
+
                 <div class="column-header">
-                    <h2 class="column-title">New Orders</h2>
-                    <span id="count-received" class="column-count">0</span>
+
+                    <div class="column-title-area">
+
+                        <div class="column-icon received">
+                            <i data-lucide="bell"></i>
+                        </div>
+
+                        <div>
+                            <h2>Novos pedidos</h2>
+                            <span>Aguardando preparo</span>
+                        </div>
+
+                    </div>
+
+                    <span
+                        id="count-received"
+                        class="column-count received-count">
+                        0
+                    </span>
+
                 </div>
-                <div class="order-list" id="list-received">
-                    <!-- Cards injected here -->
+
+
+                <div
+                    class="order-list"
+                    id="list-received">
                 </div>
+
             </section>
 
-            <!-- Preparing Orders -->
-            <section class="order-column" id="column-preparing">
+
+            <!-- =====================
+                 PREPARANDO
+            ====================== -->
+
+            <section
+                class="order-column"
+                id="column-preparing">
+
                 <div class="column-header">
-                    <h2 class="column-title">Preparing</h2>
-                    <span id="count-preparing" class="column-count">0</span>
+
+                    <div class="column-title-area">
+
+                        <div class="column-icon preparing">
+                            <i data-lucide="chef-hat"></i>
+                        </div>
+
+                        <div>
+                            <h2>Preparando</h2>
+                            <span>Em produção</span>
+                        </div>
+
+                    </div>
+
+                    <span
+                        id="count-preparing"
+                        class="column-count preparing-count">
+                        0
+                    </span>
+
                 </div>
-                <div class="order-list" id="list-preparing">
-                    <!-- Cards injected here -->
+
+
+                <div
+                    class="order-list"
+                    id="list-preparing">
                 </div>
+
             </section>
 
-            <!-- Ready Orders -->
-            <section class="order-column" id="column-ready">
+
+            <!-- =====================
+                 PRONTOS
+            ====================== -->
+
+            <section
+                class="order-column"
+                id="column-ready">
+
                 <div class="column-header">
-                    <h2 class="column-title">Ready</h2>
-                    <span id="count-ready" class="column-count">0</span>
+
+                    <div class="column-title-area">
+
+                        <div class="column-icon ready">
+                            <i data-lucide="check-circle-2"></i>
+                        </div>
+
+                        <div>
+                            <h2>Prontos</h2>
+                            <span>Aguardando serviço</span>
+                        </div>
+
+                    </div>
+
+                    <span
+                        id="count-ready"
+                        class="column-count ready-count">
+                        0
+                    </span>
+
                 </div>
-                <div class="order-list" id="list-ready">
-                    <!-- Cards injected here -->
+
+
+                <div
+                    class="order-list"
+                    id="list-ready">
                 </div>
+
             </section>
 
-            <!-- Served Orders (History) -->
-            <section class="order-column" id="column-served">
+
+            <!-- =====================
+                 HISTÓRICO
+            ====================== -->
+
+            <section
+                class="order-column"
+                id="column-served">
+
                 <div class="column-header">
-                    <h2 class="column-title">Recently Served</h2>
-                    <span id="count-served" class="column-count">0</span>
+
+                    <div class="column-title-area">
+
+                        <div class="column-icon served">
+                            <i data-lucide="history"></i>
+                        </div>
+
+                        <div>
+                            <h2>Servidos</h2>
+                            <span>Pedidos recentes</span>
+                        </div>
+
+                    </div>
+
+                    <span
+                        id="count-served"
+                        class="column-count served-count">
+                        0
+                    </span>
+
                 </div>
-                <div class="order-list" id="list-served">
-                    <!-- Cards injected here -->
+
+
+                <div
+                    class="order-list"
+                    id="list-served">
                 </div>
+
             </section>
-        </div>
+
+
+        </section>
+
     </main>
 
-    <!-- Notification Sound -->
-    <audio id="orderSound" src="https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3"
-        preload="auto"></audio>
 
-    <!-- Scripts -->
+    <!-- =========================
+         NOTIFICATION SOUND
+    ========================== -->
+
+    <audio
+        id="orderSound"
+        src="https://assets.mixkit.co/active_storage/sfx/2358/2358-preview.mp3"
+        preload="auto">
+    </audio>
+
+
+    <!-- =========================
+         SUPABASE
+    ========================== -->
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script src="../js/supabase-config.js"></script>
+
     <script src="../js/kitchen.js"></script>
+
+
+    <!-- =========================
+         SMALL UI SCRIPT
+    ========================== -->
+
+    <script>
+
+        function updateDate() {
+
+            const element =
+                document.getElementById('currentDate');
+
+            if (!element) return;
+
+            const now = new Date();
+
+            element.textContent =
+                now.toLocaleDateString('pt-BR', {
+                    weekday: 'long',
+                    day: '2-digit',
+                    month: 'long'
+                });
+
+        }
+
+        updateDate();
+
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+
+    </script>
+
 </body>
 
 </html>
